@@ -1,4 +1,4 @@
-Here’s a clean **README.md** you can drop into your `DQM_webpage_midas_figures_plugin` repo. It frames the repo as a **starter template** for anyone who wants to clone and build their own plugin:
+Here’s a rewritten `README.md` that emphasizes **versioning** and why using tagged releases is better for CDN loading:
 
 ---
 
@@ -15,7 +15,7 @@ Here’s a clean **README.md** you can drop into your `DQM_webpage_midas_figures
 This repository provides an **example plugin** for the [DQM Webpage Frontend](https://github.com/jaca230/DQM_webpage).
 It demonstrates how to define custom figures (plots, tables, labels), bundle them with Rollup, and register them with the DQM frontend’s plugin system.
 
-This is a **good place to clone** if you want to start building your own plugin. Just copy this repo, change the figure definitions, and rebuild.
+👉 This repo is a **good place to clone** if you want to start building your own plugin. Just copy it, change the figure definitions, and rebuild.
 
 ---
 
@@ -64,21 +64,42 @@ This generates:
 
 ## Loading Into DQM Webpage
 
-Once built and pushed to GitHub, the plugin bundles are served automatically by jsDelivr.
+Once built and pushed to GitHub, the plugin bundles can be served automatically by **jsDelivr**.
 
-Example URLs:
+### Development (main branch)
 
-```text
+For quick iteration you can load directly from `main`:
+
+```
 https://cdn.jsdelivr.net/gh/jaca230/DQM_webpage_midas_figures_plugin@main/dist/plugin.es.js
-https://cdn.jsdelivr.net/gh/jaca230/DQM_webpage_midas_figures_plugin@main/dist/plugin.iife.js
 ```
 
-To load:
+⚠️ **Warning:** this URL will always serve the *latest commit* on `main`, which may change without notice. This is fine for development but not stable for production dashboards.
 
-1. Open the DQM Webpage frontend.
-2. Go to the **Plugin Management Modal**.
-3. Paste the CDN URL for your plugin.
-4. The figures defined here (`MyPlot`, `MyTable`, `MyLabel`) will appear in the figure list.
+---
+
+### Production (versioned tags – recommended)
+
+For stability, create a version tag in Git and use it in your CDN URL:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Then load the plugin via:
+
+```
+https://cdn.jsdelivr.net/gh/jaca230/DQM_webpage_midas_figures_plugin@v1.0.0/dist/plugin.es.js
+```
+
+for example, the link will change based on your github username, repository name, and version number.
+
+Benefits of versioning:
+
+* Dashboards always load the exact code you released.
+* Future updates won’t break older dashboards.
+* You can safely roll out new versions without disrupting existing layouts.
 
 ---
 
@@ -87,15 +108,84 @@ To load:
 * Edit or add new figure factories under `figures/`.
 * Register them in `index.js`.
 * Rebuild with `npm run build`.
+* Tag a new release when ready, e.g. `v1.1.0`.
 
-This repository is intended as a **template**. Fork it, rename it, and adapt to your experiment’s figures.
+This repository is intended as a **template**. Fork it, rename it, and adapt it to your experiment’s figures.
+
+## Versioning and Package Metadata
+
+Your plugin’s identity and version are controlled by the **`package.json`** file.
+This metadata is important both for development and for CDN loading via jsDelivr.
+
+### Example `package.json`
+
+```json
+{
+  "name": "dqmweb-midas-figures-plugin",   // unique package/repo name
+  "version": "1.0.0",                      // semantic version (major.minor.patch)
+  "description": "Custom figures for DQM Webpage",
+  "main": "rollup.config.mjs",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": "Your Name or Collaboration",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.27.7",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "rollup": "^4.44.1"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
+```
+
+### Fields to Update
+
+* **`name`**
+
+  * Should match your repo/project.
+  * Avoid generic names like `example_plugin`.
+  * Example: `"name": "dqmweb-myexperiment-plugin"`
+
+* **`version`**
+
+  * Follow [semantic versioning](https://semver.org/):
+
+    * `MAJOR.MINOR.PATCH`
+    * `1.0.0` → initial release
+    * `1.1.0` → new features, backward compatible
+    * `2.0.0` → breaking changes
+  * Each release you **tag in git** should also update this field for clarity.
+
+* **`description`**
+
+  * A short sentence about what figures the plugin provides.
+
+* **`author`**
+
+  * Your name, or your collaboration (e.g., `"PIONEER Collaboration"`).
+
+* **`license`**
+
+  * Use `"MIT"` unless you have other requirements.
+
+---
+
+### Why It Matters
+
+1. **Clarity** – Anyone cloning the repo knows what it is.
+2. **Version tracking** – Makes it easier to know what’s deployed when you push new tags (`v1.1.0`).
+3. **CDN stability** – When combined with git tags, dashboards can lock onto a specific version (e.g., `v1.1.0`) and not break from future changes.
 
 ---
 
 ## License
 
 MIT License — see [LICENSE](LICENSE).
-
----
-
-Do you want me to also include a **step-by-step "How to fork this into your own plugin"** section (like a short tutorial for students/new contributors), or keep the README lean?
