@@ -1,4 +1,4 @@
-# DQM_webpage_midas_figures_plugin
+# DQM Webpage Example Plugin
 
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![React](https://img.shields.io/badge/react-18-blue)](https://reactjs.org/)
