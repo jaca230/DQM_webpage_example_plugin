@@ -15,8 +15,7 @@ Here’s a rewritten `README.md` that emphasizes **versioning** and why using ta
 This repository provides an **example plugin** for the [DQM Webpage Frontend](https://github.com/jaca230/DQM_webpage).
 It demonstrates how to define custom figures (plots, tables, labels), bundle them with Rollup, and register them with the DQM frontend’s plugin system.
 
-👉 This repo is a **good place to clone** if you want to start building your own plugin. Just copy it, change the figure definitions, and rebuild.
-
+This repo is a **good place to clone** if you want to start building your own plugin. Just copy it, add new figures, and rebuild.
 ---
 
 ## Project Structure
