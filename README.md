@@ -16,6 +16,7 @@ This repository provides an **example plugin** for the [DQM Webpage Frontend](ht
 It demonstrates how to define custom figures (plots, tables, labels), bundle them with Rollup, and register them with the DQM frontend’s plugin system.
 
 This repo is a **good place to clone** if you want to start building your own plugin. Just copy it, add new figures, and rebuild.
+
 ---
 
 ## Project Structure
