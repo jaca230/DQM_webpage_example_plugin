@@ -1,7 +1,3 @@
-Here’s a rewritten `README.md` that emphasizes **versioning** and why using tagged releases is better for CDN loading:
-
----
-
 # DQM_webpage_midas_figures_plugin
 
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
